@@ -34,33 +34,45 @@ Most important sentence:
 
 # 2. Container vs Image
 
+| Aspect       | Container Image                                   | Container                                               |
+| ------------ | ------------------------------------------------- | ------------------------------------------------------- |
+| Nature       | Static artifact                                   | Runtime execution environment                           |
+| Mutability   | Immutable (read-only layers)                      | Has a writable layer on top                             |
+| Contents     | Filesystem + metadata                             | One or more running processes                           |
+| Purpose      | Packaging and distribution                        | Execution of a workload                                 |
+| Lifecycle    | Built once, stored in a registry                  | Created from an image, runs, then is stopped or deleted |
+| Persistence  | Changes require a new image build                 | Changes in the writable layer are lost on deletion      |
+| Analogy      | Class definition / blueprint                      | Instance of that class / running program                |
+
+---
+
 ## Container Image
 
 A container image is a static artifact.
 
 It usually contains:
 
-```text
-Root filesystem content
-Metadata
-Default command
-Environment variables
-Working directory
-Exposed ports
-Entrypoint
-Layer information
-```
+| Component | Description |
+| ----------------------- | ---------------------------------------------------- |
+| Root filesystem content | Files and directories forming the container's `/`    |
+| Metadata                | Image configuration, labels, and annotations         |
+| Default command         | The default `CMD` to execute at runtime              |
+| Environment variables   | Pre-set env vars declared via `ENV`                  |
+| Working directory       | Default `WORKDIR` for processes                      |
+| Exposed ports           | Ports declared with `EXPOSE`                         |
+| Entrypoint              | Main executable defined via `ENTRYPOINT`             |
+| Layer information       | References to the image's filesystem layers          |
 
 An image is usually immutable and layered.
 
 Example:
 
-```text
-Application Layer
-Dependency Layer
-Package Installation Layer
-Base OS Layer
-```
+| Order      | Layer                    |
+| ---------- | ------------------------ |
+| 4 (top)    | Application Layer        |
+| 3          | Dependency Layer         |
+| 2          | Package Installation Layer |
+| 1 (bottom) | Base OS Layer            |
 
 ## Container
 
@@ -70,17 +82,10 @@ It is not fundamentally the image itself.
 
 A container may contain one or more processes.
 
-Beginner explanation:
-
-```text
-Container = isolated Linux process
-```
-
-More accurate explanation:
-
-```text
-Container = standardized isolated execution environment for one or more processes
-```
+| Level         | Definition                                                               |
+| ------------- | ------------------------------------------------------------------------ |
+| Beginner      | Isolated Linux process                                                   |
+| More accurate | Standardized isolated execution environment for one or more processes    |
 
 ---
 
