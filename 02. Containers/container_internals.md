@@ -10,7 +10,7 @@ Container   = isolated execution environment for processes
 Runtime     = software that creates and starts containers
 ```
 
-layers:
+Layers:
 
 ```text
 Container Image
@@ -488,7 +488,7 @@ debug tools
 CA certificates
 ```
 
-warning:
+Warning:
 
 > A scratch image is minimal, but debugging is harder because it lacks shell and common tools.
 
@@ -498,7 +498,7 @@ warning:
 
 `docker commit` creates an image from a container’s current filesystem state.
 
-Example flow:
+Flow:
 
 ```bash
 docker run -it debian bash
@@ -510,7 +510,7 @@ docker commit <container-id> my-python-image
 
 This works, but it is usually discouraged for production image builds.
 
-Why?
+Why use it?
 
 ```text
 Poor reproducibility
@@ -520,7 +520,7 @@ Harder to automate
 Harder to rebuild consistently
 ```
 
-Better approach:
+Better:
 
 ```text
 Use Dockerfile / Buildfile / automated build definition
@@ -607,11 +607,7 @@ Key idea:
 
 # 16. OCI: Open Container Initiative
 
-OCI stands for:
-
-```text
-Open Container Initiative
-```
+OCI stands for Open Container Initiative.
 
 OCI defines open standards for container ecosystems.
 
@@ -774,7 +770,7 @@ Block I/O
 PIDs
 ```
 
-phrase:
+Useful phrase:
 
 > Namespaces isolate visibility; cgroups control resource usage.
 
