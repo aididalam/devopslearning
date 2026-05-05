@@ -889,41 +889,7 @@ tenant identity
 
 ---
 
-# 21. VXLAN ARP Behavior
-
-Inside VXLAN, tenants behave as if they are on the same L2 network.
-
-If `tenant_a_web` wants `tenant_a_db`, it may send ARP:
-
-```text
-Who has 10.0.0.11?
-```
-
-That ARP frame is an inner Ethernet broadcast.
-
-The local VTEP captures it and sends it across VXLAN.
-
-Flow:
-
-```text
-tenant_a_web sends ARP broadcast
-↓
-provider_edge_a VTEP captures it
-↓
-VTEP wraps it in VXLAN/UDP/IP
-↓
-underlay routes it
-↓
-provider_edge_b VTEP unwraps it
-↓
-tenant_a_db receives normal ARP
-```
-
-To the tenant servers, it looks like normal LAN behavior.
-
----
-
-# 22. VLAN vs VXLAN
+# 21. VLAN vs VXLAN
 
 | Topic            | VLAN                       | VXLAN                      |
 | ---------------- | -------------------------- | -------------------------- |
@@ -944,3 +910,8 @@ VXLAN:
   Many L3-connected locations joined into virtual L2 networks.
 ```
 
+---
+
+# 22. Finally
+
+> A LAN is a local network that may contain many subnets. A network link is any path between devices — physical cable, Wi-Fi, or virtual pair. L1 deals with signals, L2 with MAC addresses and Ethernet frames, and L3 with IP addresses and routing. Switches extend L2 broadcast domains while routers separate them. When two hosts are in the same subnet, the sender ARPs for the destination MAC and sends directly; when they are in different subnets, the Ethernet frame goes to the router MAC while the IP destination stays the final host. VLANs split one L2 network into isolated broadcast domains using a 12-bit VLAN ID, limited to around 4096 IDs. VXLAN solves scale by carrying inner Ethernet frames inside UDP/IP packets, using a 24-bit VNI that supports around 16 million virtual networks. VTEPs encapsulate and decapsulate VXLAN traffic at the edge of the underlay network. The underlay routers see only the outer provider IPs and never the tenant addresses, which means overlapping tenant IP ranges can coexist without conflict.
