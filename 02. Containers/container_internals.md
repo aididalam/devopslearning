@@ -1,6 +1,10 @@
 # Container Internals — Notes
 
-## 1. The Core Mental Model
+## From Container Image to Runtime
+
+---
+
+# 1. The Core Mental Model
 
 Do not treat **image**, **container**, and **runtime** as the same thing.
 
