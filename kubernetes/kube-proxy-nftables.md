@@ -33,6 +33,32 @@ aidid@pi:~$ kubectl describe node pi | grep -i PodCIDR:
 PodCIDR:                      10.244.0.0/24
 ```
 
+### Change kube-proxy Mode to nftables
+
+Now change kube-proxy mode to `nftables`.
+
+```bash
+aidid@pi:~$ kubectl -n kube-system edit configmap kube-proxy
+```
+
+Inside the config, change the mode:
+
+```yaml
+mode: nftables
+```
+
+Then restart kube-proxy so that it starts again with the new mode:
+
+```bash
+aidid@pi:~$ kubectl -n kube-system rollout restart daemonset kube-proxy
+daemonset.apps/kube-proxy restarted
+```
+
+```bash
+aidid@pi:~$ kubectl -n kube-system rollout status daemonset kube-proxy
+daemon set "kube-proxy" successfully rolled out
+```
+
 Also, let's confirm that kube-proxy is running in `nftables` mode:
 
 ```bash
